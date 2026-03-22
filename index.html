@@ -17,15 +17,83 @@
         /* 메인 이미지 */
         .main-visual { position: relative; width: 100%; height: 80vh; overflow: hidden; }
         .main-visual img { width: 100%; height: 100%; object-fit: cover; }
-        .main-text { position: absolute; bottom: 10%; width: 100%; color: #fff; text-shadow: 1px 1px 5px rgba(0,0,0,0.5); }
+        .main-text { position: absolute; bottom: 10%; width: 100%; color: #fff; text-shadow: 1px 1px 5px rgba(0,0,0,0.5); text-align: center; }
+        .main-text h1 { font-size: 2rem; margin: 0 0 10px 0; }
 
         /* 인사말 */
         .greeting-text { font-size: 0.95rem; color: #555; }
         .names { font-size: 1.2rem; margin-top: 20px; font-weight: bold; }
 
+        /* =========================================
+           [NEW] CSS 전용 이미지 슬라이더 스타일
+        ========================================= */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            margin: 0 auto;
+            overflow: hidden; /* 영역 밖 숨김 */
+        }
+
+        .slides {
+            display: flex;
+            width: 100%;
+            /* 아래 overflow-x: auto와 snap 기능이 핵심입니다. */
+            overflow-x: auto; 
+            scroll-snap-type: x mandatory; /* 가로 스크롤 시 자석처럼 붙게 함 */
+            scroll-behavior: smooth; /* 부드러운 이동 */
+            -webkit-overflow-scrolling: touch; /* 모바일 부드러운 스크롤 */
+        }
+
+        /* 스크롤바 숨기기 (크롬, 사파리 등) */
+        .slides::-webkit-scrollbar { display: none; }
+        /* 스크롤바 숨기기 (파이어폭스) */
+        .slides { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .slide {
+            flex: 0 0 100%; /* 각 슬라이드 너비를 100%로 고정 */
+            width: 100%;
+            scroll-snap-align: center; /* 스크롤 멈출 때 중앙에 맞춤 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide img {
+            width: 100%;
+            height: auto; /* 비율 유지 */
+            vertical-align: middle;
+        }
+
+        /* 슬라이드 안내 점 (Dots) - 시각적 요소 */
+        .slider-nav {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        .slider-nav a {
+            width: 8px;
+            height: 8px;
+            background-color: #ddd;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .slider-nav a:hover, .slider-nav a:active {
+            background-color: #8a7b6a;
+        }
+        /* ========================================= */
+
         /* 지도/정보 */
         .map-box { background: #eee; width: 100%; height: 250px; margin: 20px 0; display: flex; align-items: center; justify-content: center; border-radius: 8px; }
-        .btn-call { display: inline-block; padding: 10px 20px; background: #8a7b6a; color: #fff; text-decoration: none; border-radius: 20px; margin-top: 10px; font-size: 0.9rem; }
+        
+        /* 버튼 스타일 */
+        .btn-group { margin-top: 15px; display: flex; flex-direction: column; gap: 10px; align-items: center; }
+        .btn-call { display: inline-block; padding: 10px 20px; background: #8a7b6a; color: #fff; text-decoration: none; border-radius: 20px; font-size: 0.9rem; width: 80%; max-width: 250px; }
+
+        /* 계좌 정보 */
+        .account-info { text-align: left; display: inline-block; margin-top: 10px; font-size: 0.9rem; background: #f4f2ef; padding: 15px; border-radius: 8px; }
+        .account-info p { margin: 5px 0; }
 
         /* 푸터 */
         footer { padding: 40px; background: #f4f2ef; font-size: 0.8rem; color: #999; text-align: center; }
@@ -35,7 +103,8 @@
 
 <div class="container">
     <header class="main-visual">
-        <img src="https://via.placeholder.com/480x800" alt="메인 사진"> <div class="main-text">
+        <img src="https://via.placeholder.com/480x800" alt="메인 사진">
+         <div class="main-text">
             <h1>이명아 & 조은애</h1>
             <p>2026. 5. 23. SAT PM 11:30</p>
         </div>
@@ -53,7 +122,28 @@
         </div>
     </section>
 
-    <section style="background-color: #faf8f6;">
+    <section style="background-color: #faf8f6; padding-left: 0; padding-right: 0;">
+        <h2>GALLERY</h2>
+        
+        <div class="slider-container">
+            <div class="slides">
+                <div class="slide" id="slide-1"><img src="https://via.placeholder.com/480x600/e9e7e4/8a7b6a?text=Wedding+Photo+1" alt="웨딩 사진 1"></div>
+                <div class="slide" id="slide-2"><img src="https://via.placeholder.com/480x600/e2dfda/8a7b6a?text=Wedding+Photo+2" alt="웨딩 사진 2"></div>
+                <div class="slide" id="slide-3"><img src="https://via.placeholder.com/480x600/dbd7d0/8a7b6a?text=Wedding+Photo+3" alt="웨딩 사진 3"></div>
+                <div class="slide" id="slide-4"><img src="https://via.placeholder.com/480x600/d4d0c6/8a7b6a?text=Wedding+Photo+4" alt="웨딩 사진 4"></div>
+            </div>
+
+            <div class="slider-nav">
+                <a href="#slide-1"></a>
+                <a href="#slide-2"></a>
+                <a href="#slide-3"></a>
+                <a href="#slide-4"></a>
+            </div>
+        </div>
+        <p style="font-size: 0.8rem; color: #999; margin-top: 10px;">좌우로 밀어서 보세요 (Swipe)</p>
+    </section>
+
+    <section>
         <h2>DATE & LOCATION</h2>
         <p><strong>2026년 5월 23일 토요일 오후 11시 30분</strong></p>
         <p>자연의 미학 - </p>
@@ -62,21 +152,23 @@
             <span>[지도 이미지를 넣어주세요]</span>
         </div>
         
-        <a href="tel:010-6668-7988" class="btn-call">신랑에게 전화하기</a>
-        <a href="tel:010-9647-3613" class="btn-call">신부에게 전화하기</a>
+        <div class="btn-group">
+        	<a href="tel:010-6668-7988" class="btn-call">신랑에게 전화하기</a>
+        	<a href="tel:010-9647-3613" class="btn-call">신부에게 전화하기</a>
+        </div>
     </section>
 
-    <section>
+    <section style="background-color: #faf8f6;">
         <h2>ACCOUNT</h2>
         <p style="font-size: 0.9rem;">축복의 마음을 담아 전하실 곳</p>
-        <div style="text-align: left; display: inline-block; margin-top: 10px;">
-            <p>신랑측 (국민은행) 123-456789-01</p>
-            <p>신부측 (신한은행) 987-654321-02</p>
+        <div class="account-info">
+            <p><strong>신랑측</strong> (국민은행) 123-456789-01</p>
+            <p><strong>신부측</strong> (신한은행) 987-654321-02</p>
         </div>
     </section>
 
     <footer>
-        COPYRIGHT 2026. GONz ALL RIGHTS RESERVED.
+        COPYRIGHT 2026. JACOB & GRACE ALL RIGHTS RESERVED.
     </footer>
 </div>
 
